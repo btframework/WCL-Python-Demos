@@ -4,7 +4,6 @@ import threading
 from threading import Event
 
 import clr
-import System
 
 # Load Bluetooth Framework assemblies
 LibPath = path.dirname(__file__) + "\\..\\_Lib\\"
@@ -16,7 +15,6 @@ clr.AddReference(LibPath + "wclBluetoothFramework.dll")
 # Import assemblies namespaces
 import wclCommon
 from wclCommon import wclErrors
-import wclCommunication
 import wclBluetooth
 from wclBluetooth import wclBluetoothDiscoverKind
 
@@ -26,7 +24,6 @@ from wclBluetooth import wclBluetoothDiscoverKind
 # Prints error message
 def PrintError(Message, Error) :
     print(Message + " : 0x%0.8X" % Error)
-
 
 # === Bluetooth Manager event handlers ===
 
@@ -154,7 +151,6 @@ def PinRequest(sender, Radio, Address, Pin) :
 def Confirm(sender, Radio, Address, Conf) :
     print("  Just-works pairing for device %0.12X" % Address)
     return True
-
 
 # === Radio menu functions ===
 
@@ -498,7 +494,6 @@ def ShowMainMenu() :
             continue
         
         ShowRadioMenu(Ndx)
-
 
 # =======================================================
 
