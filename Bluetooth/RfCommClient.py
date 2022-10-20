@@ -101,9 +101,11 @@ def Connect(sender, Error) :
 # The method handles wclRfCommClient.OnData event.
 # The event called when data from connected device recevied.
 def Data(sender, Data) :
+    # Use .NET Encoding class to convert Data[] bytes array to string
+    # If you use other than Gps2Blue application as server change the
+    # following code line.
     Str = Text.Encoding.ASCII.GetString(Data)
     print(Str)
-
 
 # =======================================================
 
