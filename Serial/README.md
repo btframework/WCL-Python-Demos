@@ -13,6 +13,15 @@
  - monitor serial device disconnection
  
  Refer to **SerialMonitor demo** from Serial Framework package to find more details about wclSerialMonitor usage and features.
+ 
+ ## UsbMonitor.py
+ 
+ This very simple demo shows how to use USB Monitor device monitoring features:
+ - enumerate plugged USB devices
+ - monitor serial USB connection
+ - monitor serial USB disconnection
+ 
+ Refer to **UsbMonitor demo** from Serial Framework package to find more details about wclUsbMonitor usage and features.
   
  ## Support
  
