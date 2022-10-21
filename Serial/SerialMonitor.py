@@ -3,7 +3,7 @@ from os import path
 
 import clr
 
-# Load Bluetooth Framework assemblies
+# Load Serial Framework assemblies
 LibPath = path.dirname(__file__) + "\\..\\_Lib\\"
 clr.AddReference(LibPath + "wclCommon.dll")
 clr.AddReference(LibPath + "wclCommunication.dll")

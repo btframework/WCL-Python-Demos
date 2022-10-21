@@ -110,48 +110,47 @@ def ReadCharacteristics(Service) :
     Res, Characteristics = Client.ReadCharacteristics(Service, wclBluetooth.wclGattOperationFlag.goNone)
     if (Res != wclErrors.WCL_E_SUCCESS) :
         print("      Read services failed: 0x%0.8X" % Res)
+    elif (Characteristics is None or len(Characteristics) == 0) :
+        print("      No characteristics found")
     else :
-        if (Characteristics is None or len(Characteristics) == 0) :
-            print("      No characteristics found")
-        else :
-            i = 1
-            for Characteristic in Characteristics :
-                print("      Characteristic %d" % i)
-                print("        Handle %0.4X" % Characteristic.Handle)
-                print("        IsShortUUID", Characteristic.Uuid.IsShortUuid)
-                if (Service.Uuid.IsShortUuid) :
-                    print("        UUID %0.4X" % Characteristic.Uuid.ShortUuid)
+        i = 1
+        for Characteristic in Characteristics :
+            print("      Characteristic %d" % i)
+            print("        Handle %0.4X" % Characteristic.Handle)
+            print("        IsShortUUID", Characteristic.Uuid.IsShortUuid)
+            if (Service.Uuid.IsShortUuid) :
+                print("        UUID %0.4X" % Characteristic.Uuid.ShortUuid)
+            else :
+                print("        UUID", Characteristic.Uuid.LongUuid)
+            if (Characteristic.IsReadable) :
+                print("        Try to read characteristic value")
+                Res, Value = Client.ReadCharacteristicValue(Characteristic, wclBluetooth.wclGattOperationFlag.goNone)
+                if (Res != wclErrors.WCL_E_SUCCESS) :
+                    print("          Read value failed: %0.8X" % Res)
                 else :
-                    print("        UUID", Characteristic.Uuid.LongUuid)
-                if (Characteristic.IsReadable) :
-                    print("        Try to read characteristic value")
-                    Res, Value = Client.ReadCharacteristicValue(Characteristic, wclBluetooth.wclGattOperationFlag.goNone)
-                    if (Res != wclErrors.WCL_E_SUCCESS) :
-                        print("          Read value failed: %0.8X" % Res)
-                    else :
-                        print("          Dump value:")
-                        Str = ""
-                        if (Value is not None and len(Value) > 0) :
-                            for b in Value :
-                                Str = Str + hex(b)
-                        print("            " + Str)
-                if (Characteristic.IsIndicatable or Characteristic.IsNotifiable) :
-                    print("        Try to subscribe")
+                    print("          Dump value:")
+                    Str = ""
+                    if (Value is not None and len(Value) > 0) :
+                        for b in Value :
+                            Str = Str + hex(b)
+                    print("            " + Str)
+            if (Characteristic.IsIndicatable or Characteristic.IsNotifiable) :
+                print("        Try to subscribe")
 
-                    Chr = Characteristic
-                    if (Characteristic.IsIndicatable and Characteristic.IsNotifiable) :
-                        Chr.IsIndicatable = False
+                Chr = Characteristic
+                if (Characteristic.IsIndicatable and Characteristic.IsNotifiable) :
+                    Chr.IsIndicatable = False
 
-                    Res = Client.Subscribe(Chr)
+                Res = Client.Subscribe(Chr)
+                if (Res != wclErrors.WCL_E_SUCCESS) :
+                    print("          Subscribe failed: 0x%0.8X" % Res)
+                else :
+                    print("          Subscribed")
+                    Res = Client.WriteClientConfiguration(Chr, True, wclBluetooth.wclGattOperationFlag.goNone)
                     if (Res != wclErrors.WCL_E_SUCCESS) :
-                        print("          Subscribe failed: 0x%0.8X" % Res)
-                    else :
-                        print("          Subscribed")
-                        Res = Client.WriteClientConfiguration(Chr, True, wclBluetooth.wclGattOperationFlag.goNone)
-                        if (Res != wclErrors.WCL_E_SUCCESS) :
-                            print("          Write configuration failed: 0x%0.8X" % Res)
-                            Client.Unsubscribe(Chr)
-                i += 1
+                        print("          Write configuration failed: 0x%0.8X" % Res)
+                        Client.Unsubscribe(Chr)
+            i += 1
 
 
 # Read services from connected device
@@ -161,21 +160,20 @@ def ReadServices() :
     Res, Services = Client.ReadServices(wclBluetooth.wclGattOperationFlag.goNone)
     if (Res != wclErrors.WCL_E_SUCCESS) :
         print("  Read services failed: 0x%0.8X" % Res)
+    elif (Services is None or len(Services) == 0) :
+        print("  No services found")
     else :
-        if (Services is None or len(Services) == 0) :
-            print("  No services found")
-        else :
-            i = 1
-            for Service in Services :
-                print("  Services %d" % i)
-                print("    Handle %0.4X" % Service.Handle)
-                print("    IsShortUUID", Service.Uuid.IsShortUuid)
-                if (Service.Uuid.IsShortUuid) :
-                    print("    UUID %0.4X" % Service.Uuid.ShortUuid)
-                else :
-                    print("    UUID", Service.Uuid.LongUuid)
-                ReadCharacteristics(Service)
-                i += 1
+        i = 1
+        for Service in Services :
+            print("  Services %d" % i)
+            print("    Handle %0.4X" % Service.Handle)
+            print("    IsShortUUID", Service.Uuid.IsShortUuid)
+            if (Service.Uuid.IsShortUuid) :
+                print("    UUID %0.4X" % Service.Uuid.ShortUuid)
+            else :
+                print("    UUID", Service.Uuid.LongUuid)
+            ReadCharacteristics(Service)
+            i += 1
 
 
 # Connects to specific device

@@ -349,16 +349,15 @@ def EnumServices(Radio, Address) :
     Res, Services = Radio.EnumRemoteServices(Address, System.Guid.Empty)
     if (Res != wclErrors.WCL_E_SUCCESS) :
         PrintError("  Enumerate services failed", Res)
+    elif (Services is None or len(Services) == 0) :
+        print("  No services found")
     else :
-        if (Services is None or len(Services) == 0) :
-            print("  No services found")
-        else :
-            print("  Found %d services" % len(Services))
-            for Service in Services :
-                print("  Service ", Service.Uuid)
-                print("    Channel ", Service.Channel)
-                print("    Name ", Service.Name)
-                print("    Comment ", Service.Comment)
+        print("  Found %d services" % len(Services))
+        for Service in Services :
+            print("  Service ", Service.Uuid)
+            print("    Channel ", Service.Channel)
+            print("    Name ", Service.Name)
+            print("    Comment ", Service.Comment)
     os.system("PAUSE")
 
 # === Menu functions ===

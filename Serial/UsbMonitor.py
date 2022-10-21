@@ -3,7 +3,7 @@ from os import path
 
 import clr
 
-# Load Bluetooth Framework assemblies
+# Load Serial Framework assemblies
 LibPath = path.dirname(__file__) + "\\..\\_Lib\\"
 clr.AddReference(LibPath + "wclCommon.dll")
 clr.AddReference(LibPath + "wclCommunication.dll")
@@ -41,18 +41,17 @@ def EnumDevices() :
     Res, Devices = Monitor.EnumDevices()
     if (Res != wclErrors.WCL_E_SUCCESS) :
         print("  Enumerate USB devices failed: 0x%0.8X" % Res)
+    elif (Devices is None or len(Devices) == 0) :
+        print(" No USB devices found")
     else :
-        if (Devices is None or len(Devices) == 0) :
-            print(" No USB devices found")
-        else :
-            i = 1
-            for Device in Devices :
-                print("Device %d" % i)
-                print("  Friendly name :", Device.FriendlyName)
-                print("  Hardware ID   :", Device.HardwareId)
-                print("  Instance      :", Device.Instance)
-                print("  Manufacturer  :", Device.Manufacturer)
-                i += 1
+        i = 1
+        for Device in Devices :
+            print("Device %d" % i)
+            print("  Friendly name :", Device.FriendlyName)
+            print("  Hardware ID   :", Device.HardwareId)
+            print("  Instance      :", Device.Instance)
+            print("  Manufacturer  :", Device.Manufacturer)
+            i += 1
 
 
 def StartMonitoring() :
