@@ -1,5 +1,5 @@
 # Bluetooth Framework for Python
- Bluetooth Framework .NET Edition can be used with Python on Windows platforms.
+ [Bluetooth Framework](https://www.btframework.com/bluetoothframework.htm) .NET Edition can be used with Python on Windows platforms.
  
  To be able to use Bluetooth Framework with Python the [Python .NET](https://github.com/pythonnet/pythonnet) package is required.
  
