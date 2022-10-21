@@ -1,5 +1,6 @@
 # Wireless Communication Library for Python
- Shows how to use Wireless Communication Library with Python
+ [Wireless Communication Library](https://www.btframework.com/wcl.htm) .NET Edition can be used with Python on Windows platforms.
  
- To use Wireless Communication Library with Python it is required to install
- Python .NET package (https://github.com/pythonnet/pythonnet)
+ To be able to use Wireless Communication Library with Python the [Python .NET](https://github.com/pythonnet/pythonnet) package is required.
+ 
+ This repository contains simple demos that show how to use call Wireless Communication Library from Python scripts.
