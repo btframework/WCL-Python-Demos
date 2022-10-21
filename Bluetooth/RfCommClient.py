@@ -14,11 +14,9 @@ clr.AddReference(LibPath + "wclCommon.dll")
 clr.AddReference(LibPath + "wclCommunication.dll")
 clr.AddReference(LibPath + "wclBluetoothFramework.dll")
 
-
 # Import assemblies namespaces
 import wclCommon
 from wclCommon import wclErrors
-import wclCommunication
 import wclBluetooth
 from wclBluetooth import wclBluetoothDiscoverKind
 

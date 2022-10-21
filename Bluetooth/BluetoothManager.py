@@ -11,13 +11,11 @@ clr.AddReference(LibPath + "wclCommon.dll")
 clr.AddReference(LibPath + "wclCommunication.dll")
 clr.AddReference(LibPath + "wclBluetoothFramework.dll")
 
-
 # Import assemblies namespaces
 import wclCommon
 from wclCommon import wclErrors
 import wclBluetooth
 from wclBluetooth import wclBluetoothDiscoverKind
-
 
 # === Helper methods ===
 
@@ -352,7 +350,7 @@ def EnumServices(Radio, Address) :
     if (Res != wclErrors.WCL_E_SUCCESS) :
         PrintError("  Enumerate services failed", Res)
     else :
-        if (len(Services) == 0) :
+        if (Services is None or len(Services) == 0) :
             print("  No services found")
         else :
             print("  Found %d services" % len(Services))

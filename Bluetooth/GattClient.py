@@ -12,11 +12,9 @@ clr.AddReference(LibPath + "wclCommon.dll")
 clr.AddReference(LibPath + "wclCommunication.dll")
 clr.AddReference(LibPath + "wclBluetoothFramework.dll")
 
-
 # Import assemblies namespaces
 import wclCommon
 from wclCommon import wclErrors
-import wclCommunication
 import wclBluetooth
 from wclBluetooth import wclBluetoothDiscoverKind
 
@@ -99,7 +97,7 @@ def Connect(sender, Error) :
 # The method handles wclGattClient.OnCharacteristicChanged event.
 def CharacteristicChanged(sender, Handle, Value) :
     Str = ""
-    if (len(Value) > 0) :
+    if (Value is not None and len(Value) > 0) :
         for b in Value :
             Str = Str + hex(b)
         print("Value received: " + Str)
@@ -113,7 +111,7 @@ def ReadCharacteristics(Service) :
     if (Res != wclErrors.WCL_E_SUCCESS) :
         print("      Read services failed: 0x%0.8X" % Res)
     else :
-        if (len(Characteristics) == 0) :
+        if (Characteristics is None or len(Characteristics) == 0) :
             print("      No characteristics found")
         else :
             i = 1
@@ -133,7 +131,7 @@ def ReadCharacteristics(Service) :
                     else :
                         print("          Dump value:")
                         Str = ""
-                        if (len(Value) > 0) :
+                        if (Value is not None and len(Value) > 0) :
                             for b in Value :
                                 Str = Str + hex(b)
                         print("            " + Str)
@@ -164,7 +162,7 @@ def ReadServices() :
     if (Res != wclErrors.WCL_E_SUCCESS) :
         print("  Read services failed: 0x%0.8X" % Res)
     else :
-        if (len(Services) == 0) :
+        if (Services is None or len(Services) == 0) :
             print("  No services found")
         else :
             i = 1
