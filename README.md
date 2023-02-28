@@ -4,3 +4,5 @@
  To be able to use Wireless Communication Library with Python the [Python .NET](https://github.com/pythonnet/pythonnet) package is required.
  
  This repository contains simple demos that show how to use call Wireless Communication Library from Python scripts.
+
+ Should you have any questions please do not hesitate to contact us at support@btframework.com
